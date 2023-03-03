@@ -15,7 +15,7 @@ class Picture extends Model
      *  @var array<int, string>
      */
 
-     protected $fillables = [
+     protected $fillable = [
         'description',
         'url'
      ];

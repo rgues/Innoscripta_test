@@ -15,8 +15,7 @@ class Article extends Model
      *  @var array<int, string>
      */
 
-     protected $fillables = [
-        'title',
+     protected $fillables = [ 'title',
         'description',
         'status',
         'date',

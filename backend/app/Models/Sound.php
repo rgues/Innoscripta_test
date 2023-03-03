@@ -15,7 +15,7 @@ class Sound extends Model
      *  @var array<int, string>
      */
 
-     protected $fillables = [
+     protected $fillable = [
         'name',
         'url',
         'article_id'

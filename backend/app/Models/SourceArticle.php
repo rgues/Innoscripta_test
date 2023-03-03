@@ -15,7 +15,7 @@ class SourceArticle extends Model
      *  @var array<int, string>
      */
 
-     protected $fillables = [
+     protected $fillable = [
         'source_id',
         'article_id'
      ];

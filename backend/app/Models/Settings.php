@@ -15,7 +15,7 @@ class Settings extends Model
      *  @var array<int, string>
      */
 
-     protected $fillables = [
+     protected $fillable = [
         'font',
         'size',
         'backgound',

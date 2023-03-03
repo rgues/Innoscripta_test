@@ -6,7 +6,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Article;
+use App\Models\Category;
 use App\Http\Resources\ArticleResource;
+use App\Http\Requests\StoreArticleRequest;
 use Illuminate\Support\Facades\Auth;
 
 class NewsController extends Controller
@@ -26,9 +28,21 @@ class NewsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(StoreArticleRequest $request)
     {
-        //
+        // Validate a request 
+        $request->validated($request->all());
+
+        $article = Article::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'status' => $request->status,
+            'date' => $request->date,
+            'category_id' => Category::all()->random()->id,
+            'user_id' => Auth::user()->id
+        ]);
+
+        return new ArticleResource($article);
     }
 
     /**

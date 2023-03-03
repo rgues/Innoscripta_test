@@ -15,7 +15,7 @@ class Session extends Model
      *  @var array<int, string>
      */
 
-     protected $fillables = [
+     protected $fillable = [
         'start',
         'end',
         'status',

@@ -15,7 +15,7 @@ class Preferences extends Model
      *  @var array<int, string>
      */
 
-     protected $fillables = [
+     protected $fillable = [
         'name',
         'description',
         'user_id'

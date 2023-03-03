@@ -15,7 +15,7 @@ class Search extends Model
      *  @var array<int, string>
      */
 
-     protected $fillables = [
+     protected $fillable = [
         'title',
         'category_name',
         'source_name',

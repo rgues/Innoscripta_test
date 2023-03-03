@@ -15,7 +15,7 @@ class Source extends Model
      *  @var array<int, string>
      */
 
-    protected $fillables = [
+    protected $fillable = [
         'name',
         'description'
      ];
