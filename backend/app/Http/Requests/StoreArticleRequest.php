@@ -25,8 +25,7 @@ class StoreArticleRequest extends FormRequest
             //
             'title' => ['required','max:255'],
             'description' => ['required'],
-            'status' => ['required','max:1'],
-            'date' => ['required','date']
+            'status' => ['required','max:1']
         ];
     }
 }

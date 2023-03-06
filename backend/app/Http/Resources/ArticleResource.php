@@ -27,9 +27,9 @@ class ArticleResource extends JsonResource
                 'updated_at' => $this->updated_at
             ],
             'relationships' => [
-                'id' => (string) $this->user->id,
-                'user_name' =>  $this->user->name,
-                'user_email' =>  $this->user->email
+               'id' => (string) $this->user->id,
+               'user_name' =>  $this->user->name,
+               'user_email' =>  $this->user->email
             ]
         ];
     }

@@ -10,9 +10,11 @@ use App\Models\Category;
 use App\Http\Resources\ArticleResource;
 use App\Http\Requests\StoreArticleRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Traits\HttpResponses;
 
 class NewsController extends Controller
 {
+    use HttpResponses;
     /**
      * Display a listing of the resource.
      *  @return \Illuminate\Http\Response;
@@ -20,9 +22,8 @@ class NewsController extends Controller
     public function index()
     {
         // Get the list of articles
-        return ArticleResource::collection(
-            Article::where('user_id', Auth::user()->id)->get()
-        );
+        $articles = Article::where('user_id', Auth::user()->id)->get();
+        return ArticleResource::collection($articles);
     }
 
     /**
@@ -37,7 +38,6 @@ class NewsController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'status' => $request->status,
-            'date' => $request->date,
             'category_id' => Category::all()->random()->id,
             'user_id' => Auth::user()->id
         ]);
@@ -48,9 +48,15 @@ class NewsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id): Response
+    public function show(Article $article)
     {
-        //
+
+        if (Auth::user()->id !== $article->user_id) {
+            return $this->error('','You are not authorized to make this request',403);
+        }
+
+        return new ArticleResource($article);
+       
     }
 
     /**
@@ -64,17 +70,21 @@ class NewsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): RedirectResponse
+    public function update(Request $request, Article $article)
     {
         //
+        $article->update($request->all());
+        return new ArticleResource($article);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): RedirectResponse
+    public function destroy(Article $article)
     {
         //
+        $article->delete();
+        return $this->success('','The article has been successfully deleted.',200);
     }
 
 }
