@@ -18,6 +18,7 @@ use App\Http\Controllers\NewsController;
 
 // public routes
 Route::post('/login',[AuthController::class, 'login']);
+
 Route::post('/register',[AuthController::class, 'register']);
 
 // Protected routes

@@ -63,6 +63,8 @@ class AuthController extends Controller
     *  Register the user on the database
     */
     public function logout () {
+
+        
         return response()->json([
         'message' => 'This is logout method'
         ]);

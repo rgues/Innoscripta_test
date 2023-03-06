@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\Article;
 use App\Models\Category;
+
 use App\Http\Resources\ArticleResource;
 use App\Http\Requests\StoreArticleRequest;
-use Illuminate\Support\Facades\Auth;
+
 use App\Traits\HttpResponses;
 
 class NewsController extends Controller
@@ -50,21 +53,9 @@ class NewsController extends Controller
      */
     public function show(Article $article)
     {
-
-        if (Auth::user()->id !== $article->user_id) {
-            return $this->error('','You are not authorized to make this request',403);
-        }
-
-        return new ArticleResource($article);
+        return  $this->isAuthorized($article) ? $this->isAuthorized($article) : 
+         new ArticleResource($article);
        
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id): Response
-    {
-        //
     }
 
     /**
@@ -73,6 +64,7 @@ class NewsController extends Controller
     public function update(Request $request, Article $article)
     {
         //
+        $this->isAuthorized($article);
         $article->update($request->all());
         return new ArticleResource($article);
     }
@@ -83,8 +75,16 @@ class NewsController extends Controller
     public function destroy(Article $article)
     {
         //
+        $this->isAuthorized($article);
         $article->delete();
-        return $this->success('','The article has been successfully deleted.',200);
+        return response(null,204);
+    }
+
+    private function isAuthorized($article) {
+
+        if (Auth::user()->id !== $article->user_id) {
+            return $this->error('','You are not authorized to make this request',403);
+        }
     }
 
 }
