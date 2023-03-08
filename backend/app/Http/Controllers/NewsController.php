@@ -51,19 +51,24 @@ class NewsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Article $article)
+    public function show(string $id)
     {
+        $article = $this->getCurrentArticle($id);
         return  $this->isAuthorized($article) ? $this->isAuthorized($article) : 
          new ArticleResource($article);
-       
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Article $article)
+    public function update(Request $request, string $id)
     {
-        //
+        // Get the current article and check if is set
+        $article = $this->getCurrentArticle($id);
+   
+        if (!isset($article)) {
+            return $this->error(['id' => $id], 'Article with id '. $id . 'does not exist', 400);
+        }
         $this->isAuthorized($article);
         $article->update($request->all());
         return new ArticleResource($article);
@@ -72,19 +77,21 @@ class NewsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Article $article)
+    public function destroy(string $id)
     {
-        //
-        $this->isAuthorized($article);
+        $article = $this->getCurrentArticle($id);
+        return  $this->isAuthorized($article) ? $this->isAuthorized($article) :
         $article->delete();
-        return response(null,204);
     }
 
     private function isAuthorized($article) {
-
-        if (Auth::user()->id !== $article->user_id) {
-            return $this->error('','You are not authorized to make this request',403);
+        if (!isset($article) || Auth::user()->id !== $article->user_id) {
+             return $this->error('','You are not authorized to make this request',403);
         }
+    }
+
+    private function getCurrentArticle($id) {
+        return Article::where('id',$id)->first(); 
     }
 
 }

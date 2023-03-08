@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+
 class ArticleResource extends JsonResource
 {
     /**
@@ -14,8 +15,9 @@ class ArticleResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+
         return [
-            'id' => (string) $this->id,
+            'id' => $this->id,
             'attributes' => [
                 'title' => $this->title,
                 'description' => $this->description,
@@ -27,9 +29,9 @@ class ArticleResource extends JsonResource
                 'updated_at' => $this->updated_at
             ],
             'relationships' => [
-               'id' => (string) $this->user->id,
-               'user_name' =>  $this->user->name,
-               'user_email' =>  $this->user->email
+               'id' => (string) $this->user ? $this->user->id : '',
+               'user_name' => $this->user ?  $this->user->name : '',
+               'user_email' => $this->user ?  $this->user->email : ''
             ]
         ];
     }
