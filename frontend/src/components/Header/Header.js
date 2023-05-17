@@ -1,34 +1,39 @@
 import React from 'react';
 import './header.css';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import SideNavigation from '../SideNavigation/SideNavigation';
 
-const navBars = () => (
-    <div className='Bars'>
-     <FontAwesomeIcon icon={faBars}  name='bars' style={{
-            color:'#dfdfdf',
-            padding:'10px',
-            cursor:'pointer'
-        }} />
-    </div>
-);
 
-const logo = () => (
+const Header = (props) => {
+
+    const navBars = () => (
+        <div className='Bars'>
+            <FontAwesomeIcon icon={faBars} name='bars'
+            onClick = { props.onOpenNav}
+            style={{
+                color: '#dfdfdf',
+                padding: '10px',
+                cursor: 'pointer'
+            }} />
+        </div>
+    );
+
+    const logo = () => (
         <Link to="/" className='logo'>
-             <img src="/images/logo/innoscripta.avif" alt="Innoscripta logo" />
-        </Link> 
-);
+            <img src="/images/logo/kamensoft.png" alt="KamenSoft Technologies logo" />
+        </Link>
+    );
 
-const Header = () => {
     return (
         <header className='header'>
-            <div className='headerOpt'>
-                { navBars() }
-               { logo() }
+            <SideNavigation {...props} />
+            <div className='headerOpt' >
+                {navBars()}
+                {logo()}
             </div>
         </header>
     );
 };
-
 export default Header;

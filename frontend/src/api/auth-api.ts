@@ -1,4 +1,4 @@
-import { apiEndpoint } from '../config'
+import { API_END_POINT } from '../config'
 import { LoginRequest } from '../types/LoginRequest';
 import { CreateAccountRequest } from '../types/CreateAccountRequest';
 
@@ -11,17 +11,17 @@ import Axios from 'axios'
 export async function createAccount(
   accountData: CreateAccountRequest
 ): Promise<AuthResponse> {
-  const response = await Axios.post(`${apiEndpoint}/register`,  JSON.stringify(accountData), headers());
+  const response = await Axios.post(`${API_END_POINT}/register`,  JSON.stringify(accountData), headers());
   return response.data;
 }
 
 export async function login(
   loginData: LoginRequest
 ): Promise<AuthResponse> {
-  const response = await Axios.post(`${apiEndpoint}/login`, JSON.stringify(loginData), headers());
+  const response = await Axios.post(`${API_END_POINT}/login`, JSON.stringify(loginData), headers());
   return response.data;
 }
 
 export async function logout(): Promise<void> {
-  await Axios.delete(`${apiEndpoint}/logout`, headers())
+  await Axios.delete(`${API_END_POINT}/logout`, headers())
 }

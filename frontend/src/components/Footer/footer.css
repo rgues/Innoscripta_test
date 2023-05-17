@@ -1,0 +1,20 @@
+.footer {
+    
+    margin-top: 20px;
+    background: #242424;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer .logo img {
+    object-fit:cover;
+    width: 50px;
+    margin: 10px;
+}
+
+.copyright {
+    flex-grow: 1;
+    color: #878787;
+    font-size: 12px;
+}
