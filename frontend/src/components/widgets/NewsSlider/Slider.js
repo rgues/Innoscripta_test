@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { API_END_POINT_DEV } from '../../config';
+import { API_END_POINT_DEV } from '../../../config';
 import SliderTemplates from './SliderTemplates';
 
 class Slider extends Component {
@@ -11,7 +11,8 @@ class Slider extends Component {
 
     componentDidMount() {
 
-        axios.get(`${API_END_POINT_DEV}/articles?_start=0&_end=3`).then(response => {
+        axios.get(`${API_END_POINT_DEV}/articles?_start=
+        ${this.props.start}&_end=${this.props.amount}`).then(response => {
             this.setState({
                 news : response.data
             });
@@ -21,7 +22,7 @@ class Slider extends Component {
 
     render() {
         return (
-           <SliderTemplates data = { this.state.news } type = "featured" />
+           <SliderTemplates data = { this.state.news } type = { this.props.type } settings = { this.props.settings }  />
         );
     }
 }
