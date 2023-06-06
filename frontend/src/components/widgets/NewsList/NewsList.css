@@ -31,3 +31,34 @@
     opacity: 1;
     transform: translateX(0%);
 }
+
+
+
+.flex_wrapper {
+    display: flex;
+    border-bottom: 2px solid #d5d5d5;
+    background: #fff;
+}
+
+.leftNews {
+    background-size: cover !important;
+}
+
+.leftNews div {
+    width: 90px;
+    height: 90px;
+    background-size: 40px !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;  
+    /*background: url('../../../../public/images/play.png'); */
+}
+
+.rightNews {
+    flex-grow: 1;
+    padding: 10px;
+}
+
+.flex_wrapper h2 {
+    font-size: 12px;
+    color: #525252;
+}

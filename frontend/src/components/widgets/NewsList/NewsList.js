@@ -10,11 +10,11 @@ import CardInfo from '../CardInfo/CardInfo';
 class NewsList extends Component {
 
     state = {
-        teams:[],
-        items:[],
-        start:this.props.start,
-        end:this.props.start + this.props.amount,
-        amount:this.props.amount
+        teams: [],
+        items: [],
+        start: this.props.start,
+        end: this.props.start + this.props.amount,
+        amount: this.props.amount
     };
 
     componentDidMount() {
@@ -23,7 +23,7 @@ class NewsList extends Component {
 
     request = (start, end) => {
 
-        if(this.state.teams.length < 1) {
+        if (this.state.teams.length < 1) {
             axios.get(`${API_END_POINT_DEV}/teams`).then(response => {
                 this.setState({
                     teams: response.data
@@ -47,12 +47,12 @@ class NewsList extends Component {
             case ('card'):
                 template = this.state.items.map((item, i) => (
                     <CSSTransition
-                        classNames = {{
+                        classNames={{
                             enter: 'newsList_wrapper',
-                            enterActive:'newsList_wrapper_enter'
+                            enterActive: 'newsList_wrapper_enter'
                         }}
-                        timeout = {500}
-                        key={i} 
+                        timeout={500}
+                        key={i}
                     >
                         <div>
                             <div className='newslist_items'>
@@ -62,6 +62,38 @@ class NewsList extends Component {
                                 </Link>
                             </div>
                         </div>
+                    </CSSTransition>
+
+                ));
+                break;
+            case ('cardMain'):
+                template = this.state.items.map((item, i) => (
+                    <CSSTransition
+                        classNames={{
+                            enter: 'newsList_wrapper',
+                            enterActive: 'newsList_wrapper_enter'
+                        }}
+                        timeout={500}
+                        key={i}
+                    >
+
+                        <Link to={`/articles/${item.id}`}>
+
+                            <div className='flex_wrapper'>
+                                <div className='leftNews' style={{
+                                    background: `url(/images/articles/${item.image})`
+                                }}>
+                                    <div>
+                                        
+                                    </div>
+                                </div>
+                                <div className='rightNews'>
+                                    <CardInfo teams={this.state.teams} team={item.team} date={item.date} />
+                                    <h2>{item.title}</h2>
+                                </div>
+                            </div>
+                        </Link>
+
                     </CSSTransition>
 
                 ));
@@ -87,7 +119,7 @@ class NewsList extends Component {
                     {this.renderNews(this.props.type)}
                 </TransitionGroup>
 
-                <Button 
+                <Button
                     type="loadmore"
                     loadMore={() => this.loadMore()}
                     cta="Load More"

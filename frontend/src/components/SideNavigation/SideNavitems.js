@@ -17,7 +17,7 @@ const SideNavitems = () => {
             type: 'option',
             icon: faFileText,
             text: 'News',
-            link: '/article'
+            link: '/news'
         },
         {
             type: 'option',

@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Home } from './components/Home/Home';
-import { Login } from './components/Login';
-import { Register } from './components/Register';
-import { ListArticle } from './components/Article/ListArticle';
-import { NewArticle } from './components/Article/NewArticle';
-import { EditArticle } from './components/Article/EditArticle';
-import { NotFound } from './components/NotFound';
+
 import Layout from './hoc/Layout/Layout';
 
+import { Home } from './components/Home/Home';
+
+import { Login } from './components/Login';
+import { Register } from './components/Register';
+ 
+import NewsArticle from './components/Articles/News/Post/index';
+
+import { NotFound } from './components/NotFound';
+import VideoArticle from './components/Articles/Videos/Video';
+import NewsMain from './components/Articles/News/Main';
+import VideosMain from './components/Articles/Videos/Main';
 
 
 class Router extends Component {
@@ -20,10 +25,11 @@ class Router extends Component {
                     <Route path="/" exact element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
-                    <Route path="/article" exact element={<ListArticle />} />
-                    <Route path="/article/new" element={<NewArticle />} />
-                    <Route path="/article/edit" element={<EditArticle />} />
-                    <Route element={<NotFound />} />
+                    <Route path="/news" element={<NewsMain/>} />
+                    <Route path="/articles/:id" exact element={<NewsArticle />} />
+                    <Route path="/videos/:id" exact element={<VideoArticle/>} />
+                    <Route path="/videos" exact element={<VideosMain/>} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </Layout>
         );

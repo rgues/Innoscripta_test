@@ -22,7 +22,7 @@ const Header = (props) => {
 
     const logo = () => (
         <Link to="/" className='logo'>
-            <img src="/images/logo/kamensoft.png" alt="KamenSoft Technologies logo" />
+            <img src="/images/nba_logo.png" alt="NBA logo" />
         </Link>
     );
 
